@@ -1,0 +1,28 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutWrap
+     fxLayoutGap="0.7%" fxLayoutAlign="start none">
+  <div fxFlex="20%" flex>
+    <mat-nav-list role="list">
+      <h3 mat-subheader >
+        <button fxFlex="100%" mat-button style="color: black" (click)="showDetailPersonne(null)">
+          <mat-icon>add</mat-icon>Ajouter une personne
+        </button>
+      </h3>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngFor="let personne of liste_personnes" (click)="onSelectPersonne(personne)"  role="listitem">
+        <img matListAvatar src="{{personne.photo}}" alt="..." *ngIf="personne.photo != null">
+        <i class="material-icons" style="font-size: 36px" matListAvatar *ngIf="personne.photo === null">account_circle</i>
+        <h3 matLine>
+          <div fxFlex="90%">{{personne.nom }} {{personne.prenom }} </div>
+          <div fxFlex="10%"><mat-icon>play_arrow</mat-icon></div>
+        </h3>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+  <div fxFlex="80%">
+    <div *ngIf="selectedPersonne">
+      <h2>{{selectedPersonne.prenom }} {{ selectedPersonne.nom | uppercase }} <button mat-button (click)="showDetailPersonne(selectedPersonne)" > <mat-icon>edit</mat-icon> Editer les informations</button></h2>
+    </div>
+    <app-personne-evenements *ngIf="selectedPersonne" [personne]="selectedPersonne"></app-personne-evenements>
+  </div>
+</div>

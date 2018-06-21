@@ -1,0 +1,36 @@
+<div *ngIf="personne">
+  <section class="timeline">
+    <ol>
+      <li *ngFor="let event of personne.evenements;">
+        <div>
+          <time>{{event.dateEvenement}}</time>
+          {{event.nom}}
+          <br>
+          <p style="text-align: center">
+            <button mat-button *ngIf="event.dateValidation == '' && setBtValiderEnabled(event)"
+                    (click)="setDateValidation(event)">Valider
+            </button>
+            <button mat-button *ngIf="event.dateValidation == '' && !setBtValiderEnabled(event)"
+                    title="Vous ne pourrez valider l'évenement qu'a la date de celui-ci" disabled>Valider
+            </button>
+            <button mat-button *ngIf="event.dateValidation != ''" disabled
+                    style="background-color: seagreen;color: white">
+              <mat-icon>check</mat-icon>
+              Validé !
+            </button>
+          </p>
+        </div>
+      </li>
+      <li></li>
+    </ol>
+
+    <div class="arrows">
+      <button class="arrow arrow__prev disabled" disabled mat-button >
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+      <button class="arrow arrow__next disabled" disabled mat-button>
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </button>
+    </div>
+  </section>
+</div>

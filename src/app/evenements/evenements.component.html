@@ -1,0 +1,56 @@
+<div layout="row" layout-wrap>
+  <h2 class="md-display-1" style="margin-left: 20px;"
+      [ngStyle.xs]="{'font-size.px': 20}"
+      [ngStyle.sm]="{'font-size.px': 20}">Liste des événements du mois : </h2>
+</div>
+
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutWrap
+     fxLayoutGap="0.7%" fxLayoutAlign="none">
+  <div fxFlex="20%" *ngFor="let evenement of getEvenementsDuMois(); let i = index" [attr.data-index]="i">
+    <mat-card class="default">
+      <mat-card-header>
+        <mat-card-title> {{evenement.personne.prenom}} {{evenement.personne.nom}}<label></label>
+        </mat-card-title>
+        <mat-card-subtitle>{{evenement.nom }} le {{evenement.dateEvenement }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+      <mat-card-actions style="text-align: center;">
+        <button mat-button *ngIf="evenement.dateValidation == '' && setBtValiderEnabled(evenement)"
+                (click)="setDateValidation(evenement)">Valider
+        </button>
+        <button mat-button *ngIf="evenement.dateValidation == '' && !setBtValiderEnabled(evenement)"
+                title="Vous ne pourrez valider l'évenement qu'a la date de celui-ci" disabled>Valider
+        </button>
+        <button mat-button *ngIf="evenement.dateValidation != ''" disabled
+                style="background-color: seagreen;color: white">
+          <mat-icon>check</mat-icon>
+          Validé !
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div *ngIf="getEvenementsDuMois().length > 5">
+    <mat-icon></mat-icon>
+  </div>
+  <div></div>
+</div>
+
+<div layout="row" layout-wrap>
+  <h2 class="md-display-1" style="margin-left: 20px;"
+      [ngStyle.xs]="{'font-size.px': 20}"
+      [ngStyle.sm]="{'font-size.px': 20}">Liste des événements à venir : </h2>
+</div>
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column"  fxLayoutWrap
+     fxLayoutGap="0.7%" fxLayoutAlign="">
+  <div fxFlex="20%" *ngFor="let evenement of getEvenementsFutur(); let i = index" [attr.data-index]="i">
+    <mat-card >
+      <mat-card-header>
+        <mat-card-title>{{evenement.personne.prenom}} {{evenement.personne.nom}}</mat-card-title>
+        <mat-card-subtitle>{{evenement.nom }} le {{evenement.dateEvenement }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content></mat-card-content>
+      <mat-card-actions></mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+<h1 mat-dialog-title>{{header}}
+  <mat-divider></mat-divider>
+</h1>
+
+<div mat-dialog-content>
+  <form fxLayout="column" [formGroup]="personneForm">
+    <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+      <mat-form-field fxFlex>
+        <mat-label>Nom</mat-label>
+        <input matInput
+               type="text" value="{{personne.nom}}" required id="nom" formControlName="nom" [(ngModel)]="personne.nom"
+               placeholder="Dupond">
+        <div *ngIf="nom.invalid && (nom.dirty || nom.touched) ">
+          <br>
+          <mat-error *ngIf="nom.invalid && !nom.hasError('required')">
+            Veuillez saisir un nom valide
+          </mat-error>
+          <mat-error *ngIf="nom.hasError('required')">
+            Veuillez saisir un nom
+          </mat-error>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>Prénom</mat-label>
+        <input matInput
+               type="text" value="{{personne.prenom}}" required label="always" formControlName="prenom"
+               [(ngModel)]="personne.prenom" id="prenom"
+               placeholder="Jean">
+        <div *ngIf="prenom.invalid && (prenom.dirty || prenom.touched) ">
+          <br>
+          <mat-error *ngIf="prenom.invalid && !nom.hasError('required')">
+            Veuillez saisir un prénom valide
+          </mat-error>
+          <mat-error *ngIf="prenom.hasError('required')">
+            Veuillez saisir un prénom
+          </mat-error>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+      <mat-form-field fxFlex>
+        <mat-label>Date de naissance</mat-label>
+        <input matInput [matDatepicker]="date_naissance" placeholder="02/02/1992" required
+               formControlName="date_de_naissance" [(ngModel)]="personne.date_de_naissance"
+               (focus)="date_naissance.open()" readonly>
+        <mat-datepicker-toggle matSuffix [for]="date_naissance"></mat-datepicker-toggle>
+        <mat-datepicker #date_naissance></mat-datepicker>
+        <div *ngIf="dateNaissance.invalid && (dateNaissance.dirty || dateNaissance.touched) ">
+          <br>
+          <mat-error *ngIf="dateNaissance.hasError('required')">
+            Veuillez saisir une date de naissance
+          </mat-error>
+          <mat-error *ngIf="dateNaissance.hasError('dateNonExpected')">
+            L'employé ne peut pas avoir en dessous de 18 ans
+          </mat-error>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>Date d'entrée</mat-label>
+        <input matInput [matDatepicker]="date_entree" placeholder="12/06/2018" required (focus)="date_entree.open()"
+               formControlName="date_debut_contrat" readonly [(ngModel)]="personne.date_debut_contrat" (dateChange)="setPeriodeDessai()">
+        <button mat-button *ngIf="personne.date_debut_contrat" matSuffix mat-icon-button aria-label="Clear" (click)="personne.date_debut_contrat=''">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-datepicker-toggle matSuffix [for]="date_entree"></mat-datepicker-toggle>
+        <mat-datepicker #date_entree></mat-datepicker>
+        <div *ngIf="dateDebutContrat.invalid && (dateDebutContrat.dirty || dateDebutContrat.touched) ">
+          <br>
+          <mat-error *ngIf="dateDebutContrat.hasError('required')">
+            Veuillez saisir une date de début de contrat
+          </mat-error>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="input-row">
+      <mat-form-field fxFill>
+        <mat-label>Poste</mat-label>
+        <input matInput
+               type="text"
+               placeholder="Ingénieur d'études et développement informatique">
+      </mat-form-field>
+    </div>
+
+    <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+      <mat-form-field fxFlex>
+        <mat-label>Mail professionnel</mat-label>
+        <input matInput
+               type="text" value="{{personne.mail_pro}}" formControlName="mail_pro" [(ngModel)]="personne.mail_pro"
+               placeholder="jean.dupond@softeam.fr">
+        <mat-icon matSuffix>mail</mat-icon>
+        <div *ngIf="mailPro.invalid && (mailPro.dirty) ">
+          <br>
+          <mat-error *ngIf="mailPro.hasError('email')">
+            Veuillez saisir une adresse mail valide
+          </mat-error>
+        </div>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>Télephone professionnel</mat-label>
+        <input matInput
+               type="text" value="{{personne.tel_pro}}"
+               placeholder="02 23 00 00 00" formControlName="tel_pro" pattern="[0-9]*" [(ngModel)]="personne.tel_pro"
+               minlength="10"
+               maxlength="10">
+        <mat-icon matSuffix>phone_iphone</mat-icon>
+        <div *ngIf="telPro.invalid && (telPro.dirty || telPro.touched) ">
+          <br>
+          <mat-error *ngIf="telPro.hasError('pattern')">
+            Veuillez saisir un numéro de téléphone valide
+          </mat-error>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+      <mat-form-field fxFlex>
+        <mat-label>Mail personnel</mat-label>
+        <input matInput
+               type="text" value="{{personne.mail_perso}}" formControlName="mail_perso"
+               [(ngModel)]="personne.mail_perso"
+               placeholder="jean.dupond@abc.fr">
+        <mat-icon matSuffix>mail</mat-icon>
+        <div *ngIf="mailPerso.invalid && (mailPerso.dirty) ">
+          <br>
+          <mat-error *ngIf="mailPerso.hasError('email')">
+            Veuillez saisir une adresse mail valide
+          </mat-error>
+        </div>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>Télephone personnel</mat-label>
+        <input matInput
+               type="text" value="{{personne.tel_perso}}" formControlName="tel_perso" [(ngModel)]="personne.tel_perso"
+               placeholder="06 00 00 00 00" minlength="10"
+               maxlength="10">
+        <mat-icon matSuffix>phone_iphone</mat-icon>
+        <div *ngIf="telPerso.invalid && (telPerso.dirty) ">
+          <br>
+          <mat-error *ngIf="telPerso.hasError('pattern')">
+            Veuillez saisir un numéro de téléphone valide
+          </mat-error>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+      <mat-form-field fxFlex>
+        <mat-label>Date de la visite médical</mat-label>
+        <input matInput [matDatepicker]="date_visite_medical" placeholder="12/06/2018" readonly
+               [(ngModel)]="personne.date_visite_medical" (focus)="date_visite_medical.open()" [ngModelOptions]="{standalone: true}">
+        <mat-datepicker-toggle matSuffix [for]="date_visite_medical"></mat-datepicker-toggle>
+        <mat-datepicker #date_visite_medical></mat-datepicker>
+      </mat-form-field>
+
+      <section fxFlex fxLayoutGap="20px">
+        <mat-checkbox [checked]="personne.periode_essai_valide" [disabled]="periode_essai_disabled">Période
+          d'éssai validée
+        </mat-checkbox>
+      </section>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <mat-divider></mat-divider>
+  <button mat-button (click)="dialogRef.close()">
+    <mat-icon>cancel</mat-icon>
+    Annuler
+  </button>
+  <button mat-button style="margin-left: auto;" type="submit" (click)="onSubmit()">
+    <mat-icon>save</mat-icon>
+    Sauvegarder
+  </button>
+</div>
