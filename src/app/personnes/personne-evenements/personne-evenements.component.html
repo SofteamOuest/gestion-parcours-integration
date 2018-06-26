@@ -7,13 +7,13 @@
           {{event.nom}}
           <br>
           <p style="text-align: center">
-            <button mat-button *ngIf="event.dateValidation == '' && setBtValiderEnabled(event)"
+            <button mat-button *ngIf="(event.dateValidation == '' || event.dateValidation == null) && setBtValiderEnabled(event)"
                     (click)="setDateValidation(event)">Valider
             </button>
-            <button mat-button *ngIf="event.dateValidation == '' && !setBtValiderEnabled(event)"
+            <button mat-button *ngIf="(event.dateValidation == '' || event.dateValidation == null) && !setBtValiderEnabled(event)"
                     title="Vous ne pourrez valider l'évenement qu'a la date de celui-ci" disabled>Valider
             </button>
-            <button mat-button *ngIf="event.dateValidation != ''" disabled
+            <button mat-button *ngIf="event.dateValidation != '' && event.dateValidation != null" disabled
                     style="background-color: seagreen;color: white">
               <mat-icon>check</mat-icon>
               Validé !

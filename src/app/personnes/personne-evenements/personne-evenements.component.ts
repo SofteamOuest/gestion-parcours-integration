@@ -44,6 +44,6 @@ export class PersonneEvenementsComponent implements OnInit, OnChanges {
   }
 
   setDateValidation(evenement) {
-    evenement = this.evenementService.setDateValidation(evenement);
+     return evenement = this.evenementService.setDateValidation(evenement);
   }
 }

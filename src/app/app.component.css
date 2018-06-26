@@ -9,27 +9,3 @@
   height: 48px;
   font-size: 48px;
 }
-/*
-md-card {
-  padding: 0 0 0 0;
-
-}
-
-md-list-item {
-  min-height: 70px !important;
-
-}
-
-::ng-deep .mat-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content {
-  width: 99vw;
-}
-
-.nav-button{
-  cursor: pointer;
-}
-
-.big-box{
-  width: 70%;
-  margin: 0 auto;
-}
-*/

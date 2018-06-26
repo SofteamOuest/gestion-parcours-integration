@@ -43,8 +43,8 @@
       <mat-form-field fxFlex>
         <mat-label>Date de naissance</mat-label>
         <input matInput [matDatepicker]="date_naissance" placeholder="02/02/1992" required
-               formControlName="date_de_naissance" [(ngModel)]="personne.date_de_naissance"
-               (focus)="date_naissance.open()" readonly>
+               formControlName="date_de_naissance" [(ngModel)]="dateDeNaissance"
+               (focus)="date_naissance.open()" >
         <mat-datepicker-toggle matSuffix [for]="date_naissance"></mat-datepicker-toggle>
         <mat-datepicker #date_naissance></mat-datepicker>
         <div *ngIf="dateNaissance.invalid && (dateNaissance.dirty || dateNaissance.touched) ">
@@ -52,7 +52,7 @@
           <mat-error *ngIf="dateNaissance.hasError('required')">
             Veuillez saisir une date de naissance
           </mat-error>
-          <mat-error *ngIf="dateNaissance.hasError('dateNonExpected')">
+          <mat-error *ngIf="dateNaissance.hasError('dateNonExpected') && !dateNaissance.hasError('required')">
             L'employé ne peut pas avoir en dessous de 18 ans
           </mat-error>
         </div>
@@ -61,8 +61,8 @@
       <mat-form-field fxFlex>
         <mat-label>Date d'entrée</mat-label>
         <input matInput [matDatepicker]="date_entree" placeholder="12/06/2018" required (focus)="date_entree.open()"
-               formControlName="date_debut_contrat" readonly [(ngModel)]="personne.date_debut_contrat" (dateChange)="setPeriodeDessai()">
-        <button mat-button *ngIf="personne.date_debut_contrat" matSuffix mat-icon-button aria-label="Clear" (click)="personne.date_debut_contrat=''">
+               formControlName="date_debut_contrat" [(ngModel)]="dateDeDebutContrat" (dateChange)="setPeriodeDessai()">
+        <button mat-button *ngIf="dateDeDebutContrat!=''" matSuffix mat-icon-button aria-label="Clear" (click)="dateDeDebutContrat='';setPeriodeDessai()">
           <mat-icon>close</mat-icon>
         </button>
         <mat-datepicker-toggle matSuffix [for]="date_entree"></mat-datepicker-toggle>
@@ -150,14 +150,14 @@
     <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
       <mat-form-field fxFlex>
         <mat-label>Date de la visite médical</mat-label>
-        <input matInput [matDatepicker]="date_visite_medical" placeholder="12/06/2018" readonly
-               [(ngModel)]="personne.date_visite_medical" (focus)="date_visite_medical.open()" [ngModelOptions]="{standalone: true}">
+        <input matInput [matDatepicker]="date_visite_medical" placeholder="12/06/2018"
+               [(ngModel)]="dateDeVisiteMedical" (focus)="date_visite_medical.open()" [ngModelOptions]="{standalone: true}">
         <mat-datepicker-toggle matSuffix [for]="date_visite_medical"></mat-datepicker-toggle>
         <mat-datepicker #date_visite_medical></mat-datepicker>
       </mat-form-field>
 
       <section fxFlex fxLayoutGap="20px">
-        <mat-checkbox [checked]="personne.periode_essai_valide" [disabled]="periode_essai_disabled">Période
+        <mat-checkbox [checked]="!periode_essai_disabled" [disabled]="periode_essai_disabled">Période
           d'éssai validée
         </mat-checkbox>
       </section>

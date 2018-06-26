@@ -31,6 +31,7 @@ import {
 import {MessagesComponent} from './messages/messages.component';
 import {ResourceService} from './services/ressource.service';
 import {PersonnesDetailsComponent} from './personnes/personnes-details/personnes-details.component';
+import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,12 @@ import {PersonnesDetailsComponent} from './personnes/personnes-details/personnes
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
   entryComponents: [
     PersonnesDetailsComponent

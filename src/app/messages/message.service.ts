@@ -1,17 +1,23 @@
 import {Injectable} from '@angular/core';
 
+import {ToastrService} from 'ngx-toastr';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class MessageService {
 
   messages: string[] = [];
 
-  add(message: string) {
-    this.messages.push(message);
+  constructor(private toastr: ToastrService) {}
+
+  succesToastr(message: string) {
+    this.toastr.success(message);
   }
 
-  clear() {
-    this.messages = [];
+  errorToastr(message: string) {
+    this.toastr.error(message);
   }
+
 }

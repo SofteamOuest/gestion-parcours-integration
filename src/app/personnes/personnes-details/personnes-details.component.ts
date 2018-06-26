@@ -16,6 +16,9 @@ export class PersonnesDetailsComponent implements OnInit {
   @Input() errorStateMatcher: ErrorStateMatcher;
   personneForm: FormGroup;
   periode_essai_disabled: boolean;
+  dateDeNaissance: any;
+  dateDeDebutContrat: any;
+  dateDeVisiteMedical: any;
 
   constructor(
     public dialogRef: MatDialogRef<PersonnesDetailsComponent>,
@@ -25,10 +28,13 @@ export class PersonnesDetailsComponent implements OnInit {
   ngOnInit() {
 
     this.header = this.data.header;
-    this.data.personne.periode_essai_valide = this.data.personne.periode_essai_valide == null ? false : true;
+    this.data.personne.periode_essai_validee = this.data.personne.periode_essai_validee == null ? false : true;
     this.personne = this.data.personne;
-
+    this.dateDeNaissance = this.personne.date_de_naissance !== null ? moment(this.personne.date_de_naissance, 'DD/MM/YYYY').toDate() : '';
+    this.dateDeDebutContrat = this.personne.date_debut_contrat !== null ? moment(this.personne.date_debut_contrat, 'DD/MM/YYYY').toDate() : '';
+    this.dateDeVisiteMedical = this.personne.date_visite_medical !== null ? moment(this.personne.date_visite_medical, 'DD/MM/YYYY').toDate() : '';
     this.setPeriodeDessai();
+
     console.log(this.personne);
 
     this.personneForm = new FormGroup({
@@ -62,6 +68,10 @@ export class PersonnesDetailsComponent implements OnInit {
 
   onSubmit() {
     if (this.personneForm.valid) {
+      this.personne.date_de_naissance = moment(this.dateDeNaissance).format('DD/MM/YYYY');
+      this.personne.date_debut_contrat = moment(this.dateDeDebutContrat).format('DD/MM/YYYY');
+      this.personne.date_visite_medical = this.dateDeVisiteMedical !== null && this.dateDeVisiteMedical !== undefined ? moment(this.dateDeVisiteMedical).format('DD/MM/YYYY') : '';
+
       this.dialogRef.close(this.personne);
     } else {
       this.valideForm(this.personneForm);
@@ -120,19 +130,20 @@ export class PersonnesDetailsComponent implements OnInit {
   }
 
   setPeriodeDessai() {
-    console.log(this.personne.date_debut_contrat);
-    this.periode_essai_disabled = (moment(this.personne.date_debut_contrat) > moment().subtract(3, 'months') || this.personne.date_debut_contrat == null);
+    let debut_contrat = moment(this.dateDeDebutContrat);
+    this.periode_essai_disabled = debut_contrat > moment().subtract(3, 'months') || !debut_contrat.isValid();
   }
 
   dateNaissanceValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       let date_naissance = control.value; // Date Object
       let current_date = new Date();
-      if (date_naissance !== null && (isNaN(date_naissance) || moment(date_naissance).get('years') >= moment().subtract(18, 'years').get('years'))) {
-          return {'dateNonExpected': true};
+      if (date_naissance !== null && (isNaN(date_naissance) || moment(date_naissance).isAfter(moment().subtract(18, 'years')))) {
+        return {'dateNonExpected': true};
       }
       return null;
-    }
+    };
   }
+
 
 }

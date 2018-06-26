@@ -13,6 +13,8 @@ export class Personne {
   poste?: string;
   date_debut_contrat: string;
   date_visite_medical?: string;
-  periode_essai_valide?: boolean;
+  periode_essai_validee?: boolean;
+  est_manager?: boolean;
+  mangager_id?: string;
   evenements?: Evenement[];
 }
