@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from '../messages/message.service';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Evenement} from './evenement';
 import {PersonnesService} from '../personnes/personnes.service';
 import {Personne} from '../personnes/personne';
@@ -13,9 +13,12 @@ import * as moment from 'moment';
 })
 export class EvenementsService {
 
+  listeEvenement: Evenement[];
+
   constructor(private messageService: MessageService, private http: HttpClient, private personneService: PersonnesService,
               private resource: ResourceService) {
   }
+
 
   enableBtValider(evenement) {
     // Si la date du jour est égale ou supérieur à la date de l'évenement alors le boutton est actif
@@ -30,13 +33,13 @@ export class EvenementsService {
 
   getAllEvenements(): Observable<Evenement[]> {
     let le: Evenement[] = [];
-
     this.http.get('/api-evenement/evenement').subscribe(events => {
         for (let event in events) {
           let personne: Personne;
-          this.personneService.getPersonneById(event).subscribe(p => personne = p);
+          this.personneService.getPersonneById(event).subscribe(p => {
+            personne = p;
+          }).unsubscribe();
           events[event].forEach(function (value) {
-            // console.log(value);
             let evenement = new Evenement();
             evenement.idEvenement = value.idEvenement;
             evenement.nom = value.nom;
@@ -52,8 +55,9 @@ export class EvenementsService {
           });
         }
       }, err => {
-        this.messageService.errorToastr('Impossible de charger la liste des evenements');
+        this.messageService.openMessage('Impossible de charger la liste des evenements');
       }, () => {
+
         le.sort((a, b) => {
           let date_a = moment(a.dateEvenement, 'DD/MM/YYYY');
           let date_b = moment(b.dateEvenement, 'DD/MM/YYYY');
@@ -86,7 +90,7 @@ export class EvenementsService {
         });
       }, err => {
         console.log('Error on getting EvenementPersonne by #id' + id);
-        this.messageService.errorToastr('Erreur lors de la récupération des événements : ' + err.toString());
+        this.messageService.openMessage('Erreur lors de la récupération des événements : ' + err.toString());
       }
     );
     return events;
@@ -98,10 +102,10 @@ export class EvenementsService {
     delete evenement.personne; // On enlève l'aggregation de la personne à l'evenement pour le passer comme attendu dans l'API
     let headers = this.resource.putResourceHeaders();
     this.http.put('/api-evenement/evenement/' + evenement.idEvenement, evenement, {headers: headers}).subscribe(events => {
-        this.messageService.succesToastr('L\'evenement a bien été mis à jour');
+        this.messageService.openMessage('L\'événement a bien été mis à jour');
         evenement.personne = personne;
       }, err => {
-        this.messageService.errorToastr('Erreur lors de la validation de l\'évenement');
+        this.messageService.openMessage('Erreur lors de la validation de l\'évenement');
       }
     );
   }
@@ -109,16 +113,26 @@ export class EvenementsService {
   createEvenementGenerique(personne: Personne) {
     let headers = this.resource.postResourceHeaders();
     console.log(personne);
-    this.http.post('/api-evenement/evenement/', {idPersonne: personne.id, dateArrivee: personne.date_debut_contrat}, {headers: headers}).subscribe(events => {
+    this.http.post('/api-evenement/evenement/', {
+      idPersonne: personne.id,
+      dateArrivee: personne.date_debut_contrat
+    }, {headers: headers}).subscribe(events => {
         console.log(events);
-        this.messageService.succesToastr('La création des événements générique à bien été faites');
+        this.messageService.openMessage('La création des événements génériques a bien été faite');
       }, err => {
-        this.messageService.errorToastr('Erreur lors de la validation de l\'évenement');
+        this.messageService.openMessage('Erreur lors de la validation de l\'évenement');
       }
     );
   }
 
   createEvenementVisiteMedical(personne: Personne) {
 
+  }
+
+
+  addAnniversairePersonne(): Evenement {
+    console.log(this.personneService.getPersonnes());
+
+    return new Evenement();
   }
 }

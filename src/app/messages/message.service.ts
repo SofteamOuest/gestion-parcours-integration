@@ -1,23 +1,18 @@
-import {Injectable} from '@angular/core';
-
-import {ToastrService} from 'ngx-toastr';
+import {Component, Injectable} from '@angular/core';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+import {MessagesComponent} from './messages.component';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class MessageService {
 
-  messages: string[] = [];
-
-  constructor(private toastr: ToastrService) {}
-
-  succesToastr(message: string) {
-    this.toastr.success(message);
+  constructor(private snackBar: MatSnackBar) {
   }
 
-  errorToastr(message: string) {
-    this.toastr.error(message);
+  openMessage(msg: string) {
+    this.snackBar.open(msg, '', {
+      panelClass: ['background-red']
+    });
   }
-
 }

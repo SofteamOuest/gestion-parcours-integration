@@ -1,0 +1,10 @@
+<div class="outer-container">
+  <div class="message">
+    <span class="md-simple-snackbar-message" [innerHtml]="message"></span>
+  </div>
+  <div class="controls">
+    <button md-button class="md-simple-snackbar-action"
+            *ngIf="hasAction" (click)="dismiss()">{{action}}</button>
+    <mat-icon fontSet="fa" *ngIf="!hasAction" fontIcon="fa-times" (click)="dismiss()"></mat-icon>
+  </div>
+</div>

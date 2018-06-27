@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{header}}
+<h1 mat-dialog-title>{{dialogHeader}}
   <mat-divider></mat-divider>
 </h1>
 
@@ -76,6 +76,25 @@
       </mat-form-field>
     </div>
 
+    <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+      <section fxFlex fxLayoutGap="20px">
+        <mat-checkbox [checked]="personne.est_manager"  (change)="setEstManager($event, personne)" >Manager
+        </mat-checkbox>
+      </section>
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Manager" formControlName="manager" [disabled]="personne.est_manager || listeManager.length ===0"
+                    [required]="!personne.est_manager" [(ngModel)]="personne.manager_id">
+          <mat-option *ngFor="let manager of listeManager" [value]="manager.id" >
+            {{manager.prenom}} {{manager.nom}}
+          </mat-option>
+        </mat-select>
+        <div *ngIf="managerId.invalid && (managerId.dirty || managerId.touched) ">
+          <br>
+          <mat-error *ngIf="managerId.hasError('required')">La selection d'un manager est obligatoire</mat-error>
+        </div>
+      </mat-form-field>
+    </div>
+
     <div class="input-row">
       <mat-form-field fxFill>
         <mat-label>Poste</mat-label>
@@ -148,6 +167,13 @@
     </div>
 
     <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+
+      <section fxFlex fxLayoutGap="20px">
+        <mat-checkbox [checked]="!periode_essai_disabled" [disabled]="periode_essai_disabled">Période
+          d'éssai validée
+        </mat-checkbox>
+      </section>
+
       <mat-form-field fxFlex>
         <mat-label>Date de la visite médical</mat-label>
         <input matInput [matDatepicker]="date_visite_medical" placeholder="12/06/2018"
@@ -156,11 +182,6 @@
         <mat-datepicker #date_visite_medical></mat-datepicker>
       </mat-form-field>
 
-      <section fxFlex fxLayoutGap="20px">
-        <mat-checkbox [checked]="!periode_essai_disabled" [disabled]="periode_essai_disabled">Période
-          d'éssai validée
-        </mat-checkbox>
-      </section>
     </div>
   </form>
 </div>

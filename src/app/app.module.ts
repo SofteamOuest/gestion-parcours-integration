@@ -26,12 +26,18 @@ import {
   MatDialogModule,
   MatSelectModule,
   ErrorStateMatcher,
-  ShowOnDirtyErrorStateMatcher, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatCheckboxModule, MAT_LABEL_GLOBAL_OPTIONS
+  ShowOnDirtyErrorStateMatcher,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MAT_DATE_LOCALE,
+  MatCheckboxModule,
+  MAT_LABEL_GLOBAL_OPTIONS,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule
 } from '@angular/material';
 import {MessagesComponent} from './messages/messages.component';
 import {ResourceService} from './services/ressource.service';
 import {PersonnesDetailsComponent} from './personnes/personnes-details/personnes-details.component';
-import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from 'ngx-toastr';
+import {MessageService} from './messages/message.service';
 
 @NgModule({
   declarations: [
@@ -66,11 +72,7 @@ import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from 'ngx-toastr
     MatNativeDateModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-    })
+    MatSnackBarModule,
   ],
   entryComponents: [
     PersonnesDetailsComponent
@@ -78,7 +80,8 @@ import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from 'ngx-toastr
   providers: [ResourceService,
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
-    {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}}
+    {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}},
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}}
   ],
   bootstrap: [AppComponent]
 })

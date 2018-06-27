@@ -12,12 +12,13 @@ import {tap} from 'rxjs/operators';
 })
 export class PersonnesService {
 
+
   page = 1;
   offset = 18;
   trigger = 10;
 
   constructor(private messageService: MessageService, private http: HttpClient, private resource: ResourceService) {
-    // this.messageService.succesToastr('Test');
+    // this.messageService.openMessage('Test');
   }
 
 
@@ -43,7 +44,7 @@ export class PersonnesService {
           lp[i] = personnes[i];
         }
       }, err => {
-        this.messageService.errorToastr('Impossible de charger la liste du personnel');
+        this.messageService.openMessage('Impossible de charger la liste du personnel');
       }, () => {
         lp.sort(function (a, b) {
           if (a.nom.toUpperCase() < b.nom.toUpperCase()) return -1;
@@ -73,9 +74,9 @@ export class PersonnesService {
         p.date_visite_medical = personne.date_visite_medical;
         p.periode_essai_validee = personne.periode_essai_validee;
         p.est_manager = personne.est_manager;
-        p.mangager_id = personne.mangager_id;
+        p.manager_id = personne.manager_id;
       }, err => {
-        this.messageService.errorToastr('Impossible de charger les informations de la personne : ' + id);
+        this.messageService.openMessage('Impossible de charger les informations de la personne : ' + id);
       }, () => {
         // console.log('ok');
       }

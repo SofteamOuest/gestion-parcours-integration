@@ -15,6 +15,6 @@ export class Personne {
   date_visite_medical?: string;
   periode_essai_validee?: boolean;
   est_manager?: boolean;
-  mangager_id?: string;
+  manager_id?: string;
   evenements?: Evenement[];
 }

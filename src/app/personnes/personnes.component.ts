@@ -14,11 +14,11 @@ import {MessageService} from '../messages/message.service';
 })
 export class PersonnesComponent implements OnInit {
 
-  liste_personnes: Personne[] = [];
   selectedPersonne: Personne;
+  liste_personnes: Personne[];
 
-  constructor(private http: HttpClient, private personneService: PersonnesService, private evenementService: EvenementsService, private dialog: MatDialog, private messageService: MessageService) {
-  }
+  constructor(private http: HttpClient, private personneService: PersonnesService, private evenementService: EvenementsService,
+              private dialog: MatDialog, private messageService: MessageService) {}
 
   ngOnInit() {
     this.getPersonnes();
@@ -49,6 +49,9 @@ export class PersonnesComponent implements OnInit {
   showDetailPersonne(personne: any) {
     let header: string;
     let typeControle: string;
+    let listeManager = this.liste_personnes.filter(function(personne){
+        return personne.est_manager === true;
+    })
     if (personne != null) {
       typeControle = 'update';
       header = 'Modification des informations de ' + personne.prenom + ' ' + personne.nom + ' :';
@@ -58,14 +61,15 @@ export class PersonnesComponent implements OnInit {
       personne = new Personne();
     }
 
-    let dialogRef = this.dialog.open(PersonnesDetailsComponent, {
+    const dialogRef = this.dialog.open(PersonnesDetailsComponent, {
       hasBackdrop: true,
       width: '900px',
       height: 'auto',
       disableClose: true,
       data: {
         header: header,
-        personne: personne
+        personne: personne,
+        listeManager: listeManager
       }
     });
 
@@ -73,18 +77,22 @@ export class PersonnesComponent implements OnInit {
       if (personne !== undefined && typeControle === 'add') {
         this.personneService.addPersonne(personne).subscribe(p => {
 
-          this.messageService.succesToastr('La personne a bien été ajoutée');
+          this.messageService.openMessage('La personne a bien été ajoutée');
           this.evenementService.createEvenementGenerique(p);
           this.liste_personnes.push(p);
+          this.liste_personnes.sort(function(a,b){
+            if (a.nom.toUpperCase() < b.nom.toUpperCase()) return -1;
+            if (a.nom.toUpperCase() > b.nom.toUpperCase()) return 1;
+            return 0;
+          })
         });
       } else if (personne !== undefined && typeControle === 'update') {
         this.personneService.update(personne).subscribe(p => {
-            this.messageService.succesToastr('La personne a bien été modifiée');
+            this.messageService.openMessage('La personne a bien été modifiée');
           }
         );
       }
       console.log('The dialog was closed');
-      //this.animal = result;
     });
   }
 

@@ -11,7 +11,7 @@ import * as moment from 'moment';
 })
 export class PersonnesDetailsComponent implements OnInit {
 
-  header: String;
+  dialogHeader: String;
   @Output() personne: Personne;
   @Input() errorStateMatcher: ErrorStateMatcher;
   personneForm: FormGroup;
@@ -19,6 +19,7 @@ export class PersonnesDetailsComponent implements OnInit {
   dateDeNaissance: any;
   dateDeDebutContrat: any;
   dateDeVisiteMedical: any;
+  listeManager: Personne[];
 
   constructor(
     public dialogRef: MatDialogRef<PersonnesDetailsComponent>,
@@ -27,14 +28,17 @@ export class PersonnesDetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.header = this.data.header;
+    this.dialogHeader = this.data.header;
     this.data.personne.periode_essai_validee = this.data.personne.periode_essai_validee == null ? false : true;
+    this.data.personne.est_manager = this.data.personne.est_manager == null ? false : this.data.personne.est_manager;
+    this.listeManager = this.data.listeManager;
     this.personne = this.data.personne;
-    this.dateDeNaissance = this.personne.date_de_naissance !== null ? moment(this.personne.date_de_naissance, 'DD/MM/YYYY').toDate() : '';
-    this.dateDeDebutContrat = this.personne.date_debut_contrat !== null ? moment(this.personne.date_debut_contrat, 'DD/MM/YYYY').toDate() : '';
-    this.dateDeVisiteMedical = this.personne.date_visite_medical !== null ? moment(this.personne.date_visite_medical, 'DD/MM/YYYY').toDate() : '';
+    this.dateDeNaissance = this.personne.date_de_naissance ? moment(this.personne.date_de_naissance, 'DD/MM/YYYY').toDate() : '';
+    this.dateDeDebutContrat = this.personne.date_debut_contrat ? moment(this.personne.date_debut_contrat, 'DD/MM/YYYY').toDate() : '';
+    this.dateDeVisiteMedical = this.personne.date_visite_medical ? moment(this.personne.date_visite_medical, 'DD/MM/YYYY').toDate() : '';
+    this.personne.manager_id = this.personne.manager_id ? this.personne.manager_id : null;
     this.setPeriodeDessai();
-
+    console.log('Getting information from #personne:');
     console.log(this.personne);
 
     this.personneForm = new FormGroup({
@@ -62,7 +66,8 @@ export class PersonnesDetailsComponent implements OnInit {
       ]),
       'tel_perso': new FormControl(this.personne.tel_perso, [
         Validators.pattern(this.acceptTelephone())
-      ])
+      ]),
+      'manager': new FormControl(this.personne.manager_id, [])
     });
   }
 
@@ -129,20 +134,33 @@ export class PersonnesDetailsComponent implements OnInit {
     return this.personneForm.get('tel_perso');
   }
 
+  get managerId() {
+    return this.personneForm.get('manager');
+  }
+
   setPeriodeDessai() {
-    let debut_contrat = moment(this.dateDeDebutContrat);
+    const debut_contrat = moment(this.dateDeDebutContrat);
     this.periode_essai_disabled = debut_contrat > moment().subtract(3, 'months') || !debut_contrat.isValid();
   }
 
   dateNaissanceValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-      let date_naissance = control.value; // Date Object
-      let current_date = new Date();
+      const date_naissance = control.value; // Date Object
+      const current_date = new Date();
       if (date_naissance !== null && (isNaN(date_naissance) || moment(date_naissance).isAfter(moment().subtract(18, 'years')))) {
         return {'dateNonExpected': true};
       }
       return null;
     };
+  }
+
+  selectMangerChange($event){
+
+  }
+
+  setEstManager($event, personne: Personne) {
+    personne.est_manager = $event.checked;
+    personne.manager_id = $event.checked ? '' : personne.manager_id;
   }
 
 
