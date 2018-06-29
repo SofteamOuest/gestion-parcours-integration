@@ -20,13 +20,19 @@ Application Angular 6 se basant sur 4 services REST :
 - evenement-parcours-integration : https://github.com/SofteamOuest/evenement-parcours-integration
 - gestion-rappel : https://github.com/SofteamOuest/evenement-rappel
 
+## Reste à faire (front) :
+- Reprise de la CSS globale
+- Déplacement sur la frise des événements (visualisation des événements pour une personne)
+- Implémation des photos pour chaque personne
+- Connexion via keycloack (à confirmer)
+
 
 # Informations générales
 ## Angular version
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
 
 ## Development server
-
+Run `npm install`
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
