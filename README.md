@@ -1,15 +1,24 @@
 # Parcours intégration
 ## Le besoin :
  
-Afin de suivre le parcours d'intégration des nouveaux arrivants, Catherine et Florie souhaitent avoir une interface de visualisation des événements à venir. Cela permet leur permet une amélioration de la gestion du parcours d'intégration dès l'arriver d'une personne. 
+Afin de suivre le parcours d'intégration des nouveaux arrivants, Catherine et Florie souhaitent avoir une interface de visualisation des événements à venir. Cela leur permet une amélioration de la gestion du parcours d'intégration dès l'arrivée d'une personne. 
 
-## Spécifications fonctionnelles :
+## Spécifications fonctionnelles:
 
-
-
+Fonctionnalités attendues :
+- Visualisation de l'ensemble des événements du mois
+- Visualisation de l'ensemble des événements à venir (M+1 et plus)
+- Ajout d'une personne 
+- Modification d'une personne
+- Visualisation des événements liés à une personne
 
 ## Spécifications technique :
 
+Application Angular 6 se basant sur 4 services REST :
+- referentiel-personne-api : https://github.com/SofteamOuest/referentiel-personnes-api
+- gestion-evenement : https://github.com/SofteamOuest/gestion-evenement
+- evenement-parcours-integration : https://github.com/SofteamOuest/evenement-parcours-integration
+- gestion-rappel : https://github.com/SofteamOuest/evenement-rappel
 
 
 # Informations générales
