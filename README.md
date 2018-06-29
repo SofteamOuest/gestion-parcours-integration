@@ -25,7 +25,7 @@ Application Angular 6 se basant sur 4 services REST :
 - Déplacement sur la frise des événements (visualisation des événements pour une personne)
 - Implémation des photos pour chaque personne
 - Connexion via keycloak (à confirmer)
-- Recherche de personnes pour voir le détail de celle-ci
+- Recherche de personnes dans la liste
 - Ajout des anniversaires
 
 
