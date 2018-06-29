@@ -27,7 +27,7 @@ Application Angular 6 se basant sur 4 services REST :
 - Connexion via keycloak (à confirmer)
 - Recherche de personnes dans la liste
 - Ajout des anniversaires
-- Génération automatique de l'adresse mail professionnelle d'une personne quand ajout ou modification d'un personne
+- Génération automatique de l'adresse mail professionnelle d'une personne quand ajout ou modification d'une personne
 
 
 # Informations générales
