@@ -18,7 +18,7 @@ Application Angular 6 se basant sur 4 services REST :
 - referentiel-personne-api : https://github.com/SofteamOuest/referentiel-personnes-api
 - gestion-evenement : https://github.com/SofteamOuest/gestion-evenement
 - evenement-parcours-integration : https://github.com/SofteamOuest/evenement-parcours-integration
-- gestion-rappel : https://github.com/SofteamOuest/evenement-rappel
+- evenement-rappel : https://github.com/SofteamOuest/evenement-rappel
 
 ## Reste à faire (front) :
 - Reprise de la CSS globale
