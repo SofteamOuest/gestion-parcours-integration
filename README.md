@@ -1,11 +1,18 @@
 # Parcours intégration
-Le besoin :
+## Le besoin :
  
-Afin de suivre le parcours d'intégration des nouveaux arrivants, Catherine et Florie souhaitent avoir une interface de visualisation des futurs evenements. Ces évenements doivent être suivis et font l'objets de rappel par mail au service RH. Ils sont également à valider quand l'un d'en eux a bien été effectué.
+Afin de suivre le parcours d'intégration des nouveaux arrivants, Catherine et Florie souhaitent avoir une interface de visualisation des événements à venir. Cela permet leur permet une amélioration de la gestion du parcours d'intégration dès l'arriver d'une personne. 
+
+## Spécifications fonctionnelles :
 
 
-Spécifications fonctionnelles :
 
+
+## Spécifications technique :
+
+
+
+# Informations générales
 ## Angular version
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
 
