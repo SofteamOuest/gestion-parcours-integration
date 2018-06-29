@@ -71,7 +71,7 @@ export class PersonnesService {
         p.tel_perso = personne.tel_perso;
         p.poste = personne.poste;
         p.date_debut_contrat = personne.date_debut_contrat;
-        p.date_visite_medical = personne.date_visite_medical;
+        p.date_visite_medicale = personne.date_visite_medicale;
         p.periode_essai_validee = personne.periode_essai_validee;
         p.est_manager = personne.est_manager;
         p.manager_id = personne.manager_id;

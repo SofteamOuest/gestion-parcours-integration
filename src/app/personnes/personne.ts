@@ -12,7 +12,7 @@ export class Personne {
   tel_perso?: number;
   poste?: string;
   date_debut_contrat: string;
-  date_visite_medical?: string;
+  date_visite_medicale?: string;
   periode_essai_validee?: boolean;
   est_manager?: boolean;
   manager_id?: string;

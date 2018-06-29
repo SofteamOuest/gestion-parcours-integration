@@ -112,23 +112,18 @@ export class EvenementsService {
 
   createEvenementGenerique(personne: Personne) {
     let headers = this.resource.postResourceHeaders();
-    console.log(personne);
+    // console.log(personne);
     this.http.post('/api-evenement/evenement/', {
       idPersonne: personne.id,
-      dateArrivee: personne.date_debut_contrat
+      dateArrivee: personne.date_debut_contrat,
+      dateVisiteMedicale: personne.date_visite_medicale
     }, {headers: headers}).subscribe(events => {
-        console.log(events);
         this.messageService.openMessage('La création des événements génériques a bien été faite');
       }, err => {
         this.messageService.openMessage('Erreur lors de la validation de l\'évenement');
       }
     );
   }
-
-  createEvenementVisiteMedical(personne: Personne) {
-
-  }
-
 
   addAnniversairePersonne(): Evenement {
     console.log(this.personneService.getPersonnes());

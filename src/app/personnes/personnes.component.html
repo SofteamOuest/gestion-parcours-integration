@@ -7,15 +7,15 @@
           <mat-icon>add</mat-icon>Ajouter une personne
         </button>
       </h3>
-      <mat-divider></mat-divider>
-      <mat-list-item *ngFor="let personne of liste_personnes" (click)="onSelectPersonne(personne)"  role="listitem">
+      <mat-divider  style="background-color: #e0e0e0"></mat-divider>
+      <mat-list-item *ngFor="let personne of liste_personnes" (click)="onSelectPersonne(personne)"  role="listitem" style="color: black">
         <img matListAvatar src="{{personne.photo}}" alt="..." *ngIf="personne.photo != null">
         <i class="material-icons" style="font-size: 36px" matListAvatar *ngIf="personne.photo === null || personne.photo === undefined">account_circle</i>
         <h3 matLine>
           <div fxFlex="90%">{{personne.nom }} {{personne.prenom }} </div>
           <div fxFlex="10%"><mat-icon>play_arrow</mat-icon></div>
         </h3>
-        <mat-divider></mat-divider>
+        <mat-divider style="background-color: #e0e0e0"></mat-divider>
       </mat-list-item>
     </mat-nav-list>
   </div>

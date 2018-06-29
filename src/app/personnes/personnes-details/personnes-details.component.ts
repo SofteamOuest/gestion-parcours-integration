@@ -35,7 +35,7 @@ export class PersonnesDetailsComponent implements OnInit {
     this.personne = this.data.personne;
     this.dateDeNaissance = this.personne.date_de_naissance ? moment(this.personne.date_de_naissance, 'DD/MM/YYYY').toDate() : '';
     this.dateDeDebutContrat = this.personne.date_debut_contrat ? moment(this.personne.date_debut_contrat, 'DD/MM/YYYY').toDate() : '';
-    this.dateDeVisiteMedical = this.personne.date_visite_medical ? moment(this.personne.date_visite_medical, 'DD/MM/YYYY').toDate() : '';
+    this.dateDeVisiteMedical = this.personne.date_visite_medicale ? moment(this.personne.date_visite_medicale, 'DD/MM/YYYY').toDate() : '';
     this.personne.manager_id = this.personne.manager_id ? this.personne.manager_id : null;
     this.setPeriodeDessai();
     console.log('Getting information from #personne:');
@@ -73,11 +73,13 @@ export class PersonnesDetailsComponent implements OnInit {
 
   onSubmit() {
     if (this.personneForm.valid) {
+      console.log(this.dateDeVisiteMedical);
       this.personne.date_de_naissance = moment(this.dateDeNaissance).format('DD/MM/YYYY');
       this.personne.date_debut_contrat = moment(this.dateDeDebutContrat).format('DD/MM/YYYY');
-      this.personne.date_visite_medical = this.dateDeVisiteMedical !== null && this.dateDeVisiteMedical !== undefined ? moment(this.dateDeVisiteMedical).format('DD/MM/YYYY') : '';
+      this.personne.date_visite_medicale = moment(this.dateDeVisiteMedical).format('DD/MM/YYYY');
 
       this.dialogRef.close(this.personne);
+      console.log(this.personne);
     } else {
       this.valideForm(this.personneForm);
     }
@@ -152,10 +154,6 @@ export class PersonnesDetailsComponent implements OnInit {
       }
       return null;
     };
-  }
-
-  selectMangerChange($event){
-
   }
 
   setEstManager($event, personne: Personne) {

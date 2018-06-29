@@ -18,7 +18,8 @@ export class PersonnesComponent implements OnInit {
   liste_personnes: Personne[];
 
   constructor(private http: HttpClient, private personneService: PersonnesService, private evenementService: EvenementsService,
-              private dialog: MatDialog, private messageService: MessageService) {}
+              private dialog: MatDialog, private messageService: MessageService) {
+  }
 
   ngOnInit() {
     this.getPersonnes();
@@ -49,9 +50,9 @@ export class PersonnesComponent implements OnInit {
   showDetailPersonne(personne: any) {
     let header: string;
     let typeControle: string;
-    let listeManager = this.liste_personnes.filter(function(personne){
-        return personne.est_manager === true;
-    })
+    let listeManager = this.liste_personnes.filter(function (personne) {
+      return personne.est_manager === true;
+    });
     if (personne != null) {
       typeControle = 'update';
       header = 'Modification des informations de ' + personne.prenom + ' ' + personne.nom + ' :';
@@ -80,11 +81,11 @@ export class PersonnesComponent implements OnInit {
           this.messageService.openMessage('La personne a bien été ajoutée');
           this.evenementService.createEvenementGenerique(p);
           this.liste_personnes.push(p);
-          this.liste_personnes.sort(function(a,b){
+          this.liste_personnes.sort(function (a, b) {
             if (a.nom.toUpperCase() < b.nom.toUpperCase()) return -1;
             if (a.nom.toUpperCase() > b.nom.toUpperCase()) return 1;
             return 0;
-          })
+          });
         });
       } else if (personne !== undefined && typeControle === 'update') {
         this.personneService.update(personne).subscribe(p => {
