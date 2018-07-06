@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {PersonnesComponent} from './personnes/personnes.component';
 import {EvenementsComponent} from './evenements/evenements.component';
 import {AppRouterModule} from './app-router/app-router.module';
@@ -73,6 +74,7 @@ import {MessageService} from './messages/message.service';
     MatCheckboxModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    Ng2SearchPipeModule
   ],
   entryComponents: [
     PersonnesDetailsComponent

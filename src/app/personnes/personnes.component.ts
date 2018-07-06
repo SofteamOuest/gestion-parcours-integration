@@ -10,7 +10,7 @@ import {MessageService} from '../messages/message.service';
 @Component({
   selector: 'app-personnes',
   templateUrl: './personnes.component.html',
-  styleUrls: ['./personnes.component.css']
+  styleUrls: ['./personnes.component.scss']
 })
 export class PersonnesComponent implements OnInit {
 
@@ -44,6 +44,9 @@ export class PersonnesComponent implements OnInit {
   onSelectPersonne(personne: Personne) {
     this.selectedPersonne = personne;
     this.selectedPersonne.evenements = this.evenementService.getEvenementsByPersonneId(personne.id);
+  }
+  deletePersonnesById(id: string) {
+    this.personneService.deletePersonne(id);
   }
 
 
@@ -95,6 +98,7 @@ export class PersonnesComponent implements OnInit {
       }
       console.log('The dialog was closed');
     });
+
   }
 
 

@@ -94,4 +94,10 @@ export class PersonnesService {
     const headers = this.resource.putResourceHeaders();
     return this.http.put<Personne>('/api-personne/personnes/update', personne, {headers: headers});
   }
+  deletePersonne(id: string) {
+    const headers = this.resource.putResourceHeaders();
+    let params = new HttpParams()
+    .append('id', '5b3dcbca26f0d036fce52584')
+   return this.http.delete('/api-personne/personnes/delete', {headers: headers, params: params});
+  }
 }
