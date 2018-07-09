@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Personne} from './personne';
 import {Observable, of} from 'rxjs';
 import {MessageService} from '../messages/message.service';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import {ResourceService} from '../services/ressource.service';
 import {EvenementsService} from '../evenements/evenements.service';
 import {tap} from 'rxjs/operators';
@@ -94,10 +94,15 @@ export class PersonnesService {
     const headers = this.resource.putResourceHeaders();
     return this.http.put<Personne>('/api-personne/personnes/update', personne, {headers: headers});
   }
+   httpOptions = {
+    withCredentials: true,
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    })
+  };
   deletePersonne(id: string) {
-    const headers = this.resource.putResourceHeaders();
-    let params = new HttpParams()
-    .append('id', '5b3dcbca26f0d036fce52584')
-   return this.http.delete('/api-personne/personnes/delete', {headers: headers, params: params});
+    return this.http.delete("/api-personne/personnes/delete/"+id+"").subscribe();
+       
   }
+
 }

@@ -108,8 +108,8 @@
       <mat-form-field fxFlex>
         <mat-label>Mail professionnel</mat-label>
         <input matInput
-               type="text" value="{{personne.mail_pro}}" formControlName="mail_pro" [(ngModel)]="personne.mail_pro"
-               placeholder="jean.dupond@softeam.fr">
+               type="text" value="{{personne.prenom | lowercase}}.{{personne.nom | lowercase}}@softeam.fr" formControlName="mail_pro" [(ngModel)]="personne.mail_pro"
+               placeholder="jean.dupond@softeam.fr" lowercase>
         <mat-icon matSuffix>mail</mat-icon>
         <div *ngIf="mailPro.invalid && (mailPro.dirty) ">
           <br>

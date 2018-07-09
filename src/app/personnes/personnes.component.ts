@@ -47,6 +47,13 @@ export class PersonnesComponent implements OnInit {
   }
   deletePersonnesById(id: string) {
     this.personneService.deletePersonne(id);
+    this.messageService.openMessage('La personne a bien été supprimée');
+    this.getPersonnes();
+    this.liste_personnes.sort(function (a, b) {
+      if (a.nom.toUpperCase() < b.nom.toUpperCase()) return -1;
+      if (a.nom.toUpperCase() > b.nom.toUpperCase()) return 1;
+      return 0;
+    });
   }
 
 

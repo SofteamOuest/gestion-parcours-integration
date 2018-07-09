@@ -160,6 +160,9 @@ export class PersonnesDetailsComponent implements OnInit {
     personne.est_manager = $event.checked;
     personne.manager_id = $event.checked ? '' : personne.manager_id;
   }
+  mailFromNomPrenom(personne:Personne){
+    personne.mail_pro=personne.prenom+'.'+personne.prenom+'@softeam.fr'
+  }
 
 
 }
