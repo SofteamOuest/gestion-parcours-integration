@@ -43,13 +43,6 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
       checkout scm
     }
 
-    container('node') {
-      stage('build IHM dist') {
-        sh 'npm install'
-        sh 'npm start'
-      }
-    }
-
     container('docker') {
 
       stage('build docker image') {
@@ -73,8 +66,6 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
     container('kubectl') {
 
       stage('deploy') {
-
-
                 build job: "/SofteamOuest/parcours-integration/master",
                   wait: false,
                   parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
