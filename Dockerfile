@@ -1,29 +1,27 @@
 # Dockerfile (tag: v3)
 FROM nginx
 
-RUN ls -la
+#RUN apt update
 
-RUN apt update
+#RUN apt install -y curl gnupg sudo
 
-RUN apt install -y curl gnupg sudo
+#RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-
-RUN sudo apt-get install -y nodejs
+#RUN sudo apt-get install -y nodejs
 
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
-ADD . /src
+#ADD . /src
 
-RUN npm install
+#RUN npm install
 
-RUN cd /src; npm run-script build
+#RUN cd /src; npm run-script build
 
 RUN mkdir /parcours-integration
 
 RUN chmod ugo+rwx /parcours-integration/
 
-COPY /src/dist/gestion-evenement/* /parcours-integration/
+COPY dist/* /parcours-integration/
 
 WORKDIR /parcours-integration
 
