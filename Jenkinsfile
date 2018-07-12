@@ -75,7 +75,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
       stage('deploy') {
 
 
-                build job: "/SofteamOuest/parcours-integration/master",
+                build job: "/SofteamOuest/parcours-integration-run/master",
                   wait: false,
                   parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
 
