@@ -1,14 +1,14 @@
 {
-  "/api-personne": {
-    "target": "http://localhost:8080/",
+  "/api-personnes": {
+    "target": "http://api-personnes/",
     "secure": false,
     "logLevel": "debug",
     "pathRewrite": {"^/api-personne" : ""}
   },
-  "/api-evenement": {
-    "target": "http://localhost:8093/",
+  "/gestion-evenement": {
+    "target": "http://gestion-evenement/",
     "secure": false,
     "logLevel": "debug",
-    "pathRewrite": {"^/api-evenement" : ""}
+    "pathRewrite": {"^/gestion-evenement" : ""}
   }
 }
