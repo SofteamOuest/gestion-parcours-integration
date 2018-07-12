@@ -19,10 +19,12 @@ RUN npm install
 
 RUN cd /src; npm run-script build
 
-WORKDIR /parcours-integration
+RUN mkdir /parcours-integration
 
 RUN chmod ugo+rwx /parcours-integration/
 
 COPY /src/dist/gestion-evenement/* /parcours-integration/
+
+WORKDIR /parcours-integration
 
 EXPOSE 8080
