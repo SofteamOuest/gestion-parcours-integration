@@ -66,7 +66,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
           sh "docker login -u admin -p ${NEXUS_PWD} registry.k8.wildwidewest.xyz"
         }
 
-        sh "docker push registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes:$now"
+        sh "docker push registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-parcours-integration:$now"
       }
     }
 
