@@ -1,9 +1,9 @@
 {
   "/api-personnes": {
-    "target": "http://api-personnes/",
+    "target": "http://referentiel-personnes-api/",
     "secure": false,
     "logLevel": "debug",
-    "pathRewrite": {"^/api-personne" : ""}
+    "pathRewrite": {"^/referentiel-personnes-api" : ""}
   },
   "/gestion-evenement": {
     "target": "http://gestion-evenement/",
