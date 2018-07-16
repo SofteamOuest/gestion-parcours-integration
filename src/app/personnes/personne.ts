@@ -14,6 +14,10 @@ export class Personne {
   date_debut_contrat: string;
   date_visite_medicale?: string;
   periode_essai_validee?: boolean;
+  role_id?:string;
+  role_nom?:string;
+  mail_manager?:string;
+  mail_commercial?:string;
   est_manager?: boolean;
   manager_id?: string;
   evenements?: Evenement[];

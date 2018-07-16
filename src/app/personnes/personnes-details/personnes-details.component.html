@@ -77,38 +77,46 @@
     </div>
 
     <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
-      <section fxFlex fxLayoutGap="20px">
-        <mat-checkbox [checked]="personne.est_manager"  (change)="setEstManager($event, personne)" >Manager
-        </mat-checkbox>
-      </section>
+        <mat-form-field fxFlex>
+          <mat-select placeholder="rôle" formControlName="role_nom" 
+          [required]="!personne.role_nom" [(ngModel)]="personne.role_nom">
+          <mat-option *ngFor="let role of destinataireGroupe" value="{{role}}" >
+              {{role}}
+          </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+              <mat-label>Poste</mat-label>
+              <input matInput
+                     type="text"
+                      value="{{personne.poste}}" id="poste" formControlName="poste" [(ngModel)]="personne.poste"  placeholder="Ingénieur d'études et développement informatique">
+        </mat-form-field>
+    </div>
+      <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px"> 
       <mat-form-field fxFlex>
-        <mat-select placeholder="Manager" formControlName="manager" [disabled]="personne.est_manager || listeManager.length ===0"
-                    [required]="!personne.est_manager" [(ngModel)]="personne.manager_id">
-          <mat-option *ngFor="let manager of listeManager" [value]="manager.id" >
+        <mat-select placeholder="Manager" formControlName="manager" 
+                    [(ngModel)]="personne.mail_manager">
+          <mat-option *ngFor="let manager of listeManager" value="{{manager.prenom | lowercase}}.{{manager.nom | lowercase}}@softeam.fr" >
             {{manager.prenom}} {{manager.nom}}
           </mat-option>
         </mat-select>
-        <div *ngIf="managerId.invalid && (managerId.dirty || managerId.touched) ">
-          <br>
-          <mat-error *ngIf="managerId.hasError('required')">La selection d'un manager est obligatoire</mat-error>
-        </div>
       </mat-form-field>
-    </div>
-
-    <div class="input-row">
-      <mat-form-field fxFill>
-        <mat-label>Poste</mat-label>
-        <input matInput
-               type="text"
-               placeholder="Ingénieur d'études et développement informatique">
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Commercial" formControlName="commercial" 
+                   [(ngModel)]="personne.mail_commercial">
+          <mat-option *ngFor="let commercial of listeCommercial" value="{{commercial.prenom | lowercase}}.{{commercial.nom | lowercase}}@softeam.fr" >
+            {{commercial.prenom}} {{commercial.nom}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-    </div>
+     
+    </div>    
 
     <div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
       <mat-form-field fxFlex>
         <mat-label>Mail professionnel</mat-label>
         <input matInput
-               type="text" value="{{personne.prenom | lowercase}}.{{personne.nom | lowercase}}@softeam.fr" formControlName="mail_pro" [(ngModel)]="personne.mail_pro"
+               type="text" value="{{personne.mail_pro}}" id="mail_pro" formControlName="mail_pro" [(ngModel)]="personne.mail_pro"
                placeholder="jean.dupond@softeam.fr" lowercase>
         <mat-icon matSuffix>mail</mat-icon>
         <div *ngIf="mailPro.invalid && (mailPro.dirty) ">

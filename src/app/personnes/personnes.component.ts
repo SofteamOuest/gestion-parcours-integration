@@ -61,8 +61,12 @@ export class PersonnesComponent implements OnInit {
     let header: string;
     let typeControle: string;
     let listeManager = this.liste_personnes.filter(function (personne) {
-      return personne.est_manager === true;
+      return personne.role_nom === 'Manager';
     });
+    let listeCommercial = this.liste_personnes.filter(function (personne) {
+      return personne.role_nom === 'Commercial';
+    });
+    
     if (personne != null) {
       typeControle = 'update';
       header = 'Modification des informations de ' + personne.prenom + ' ' + personne.nom + ' :';
@@ -80,7 +84,8 @@ export class PersonnesComponent implements OnInit {
       data: {
         header: header,
         personne: personne,
-        listeManager: listeManager
+        listeManager: listeManager,
+        listeCommercial: listeCommercial
       }
     });
 

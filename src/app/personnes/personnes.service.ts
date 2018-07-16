@@ -75,6 +75,9 @@ export class PersonnesService {
         p.periode_essai_validee = personne.periode_essai_validee;
         p.est_manager = personne.est_manager;
         p.manager_id = personne.manager_id;
+        p.role_nom = personne.role_nom;
+        p.mail_manager=personne.mail_manager;
+        p.mail_commercial=personne.mail_commercial;
       }, err => {
         this.messageService.openMessage('Impossible de charger les informations de la personne : ' + id);
       }, () => {
@@ -92,7 +95,7 @@ export class PersonnesService {
 
   update(personne: Personne): Observable<Personne> {
     const headers = this.resource.putResourceHeaders();
-    return this.http.put<Personne>('/api-personne/personnes/update', personne, {headers: headers});
+    return this.http.post<Personne>('/api-personne/personnes/update', personne, {headers: headers});
   }
    httpOptions = {
     withCredentials: true,

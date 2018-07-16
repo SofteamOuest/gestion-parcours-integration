@@ -20,6 +20,8 @@ export class PersonnesDetailsComponent implements OnInit {
   dateDeDebutContrat: any;
   dateDeVisiteMedical: any;
   listeManager: Personne[];
+  listeCommercial: Personne[];
+  destinataireGroupe: String[];
 
   constructor(
     public dialogRef: MatDialogRef<PersonnesDetailsComponent>,
@@ -32,12 +34,14 @@ export class PersonnesDetailsComponent implements OnInit {
     this.data.personne.periode_essai_validee = this.data.personne.periode_essai_validee == null ? false : true;
     this.data.personne.est_manager = this.data.personne.est_manager == null ? false : this.data.personne.est_manager;
     this.listeManager = this.data.listeManager;
+    this.listeCommercial = this.data.listeCommercial;
     this.personne = this.data.personne;
     this.dateDeNaissance = this.personne.date_de_naissance ? moment(this.personne.date_de_naissance, 'DD/MM/YYYY').toDate() : '';
     this.dateDeDebutContrat = this.personne.date_debut_contrat ? moment(this.personne.date_debut_contrat, 'DD/MM/YYYY').toDate() : '';
     this.dateDeVisiteMedical = this.personne.date_visite_medicale ? moment(this.personne.date_visite_medicale, 'DD/MM/YYYY').toDate() : '';
     this.personne.manager_id = this.personne.manager_id ? this.personne.manager_id : null;
     this.setPeriodeDessai();
+    this.setListeGroupeDestinataire();
     console.log('Getting information from #personne:');
     console.log(this.personne);
 
@@ -67,7 +71,10 @@ export class PersonnesDetailsComponent implements OnInit {
       'tel_perso': new FormControl(this.personne.tel_perso, [
         Validators.pattern(this.acceptTelephone())
       ]),
-      'manager': new FormControl(this.personne.manager_id, [])
+      'poste': new FormControl(this.personne.poste, []),
+      'manager': new FormControl(this.personne.mail_manager, []),
+      'commercial': new FormControl(this.personne.mail_commercial, []),
+      'role_nom': new FormControl(this.personne.role_nom, [])
     });
   }
 
@@ -160,8 +167,8 @@ export class PersonnesDetailsComponent implements OnInit {
     personne.est_manager = $event.checked;
     personne.manager_id = $event.checked ? '' : personne.manager_id;
   }
-  mailFromNomPrenom(personne:Personne){
-    personne.mail_pro=personne.prenom+'.'+personne.prenom+'@softeam.fr'
+  setListeGroupeDestinataire() {
+    this.destinataireGroupe = ['Manager', 'Rh' , 'Commercial','Collaborateur']
   }
 
 
