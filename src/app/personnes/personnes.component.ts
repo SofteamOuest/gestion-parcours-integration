@@ -10,7 +10,7 @@ import {MessageService} from '../messages/message.service';
 @Component({
   selector: 'app-personnes',
   templateUrl: './personnes.component.html',
-  styleUrls: ['./personnes.component.scss']
+  styleUrls: ['./personnes.component.css']
 })
 export class PersonnesComponent implements OnInit {
 

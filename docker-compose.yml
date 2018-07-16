@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+
+  parcours-integration:
+    build:
+      context: .
+    ports:
+    - "8084:8080"
+

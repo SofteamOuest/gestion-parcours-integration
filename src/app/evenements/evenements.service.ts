@@ -33,7 +33,7 @@ export class EvenementsService {
 
   getAllEvenements(): Observable<Evenement[]> {
     let le: Evenement[] = [];
-    this.http.get('/api-evenement/evenement').subscribe(events => {
+    this.http.get('/evenement').subscribe(events => {
         for (let event in events) {
           let personne: Personne;
           this.personneService.getPersonneById(event).subscribe(p => {
@@ -71,7 +71,7 @@ export class EvenementsService {
 
   getEvenementsByPersonneId(id: string) {
     let events: Evenement[] = [];
-    this.http.get<Evenement[]>('/api-evenement/evenement/personne/' + id).subscribe(evenements => {
+    this.http.get<Evenement[]>('/evenement/personne/' + id).subscribe(evenements => {
         console.log('Getting EvenementPersonne by #id' + id);
         evenements.forEach(function (value) {
           // console.log(value);
@@ -101,7 +101,7 @@ export class EvenementsService {
     let personne = evenement.personne;
     delete evenement.personne; // On enlève l'aggregation de la personne à l'evenement pour le passer comme attendu dans l'API
     let headers = this.resource.putResourceHeaders();
-    this.http.put('/api-evenement/evenement/' + evenement.idEvenement, evenement, {headers: headers}).subscribe(events => {
+    this.http.put('/evenement/' + evenement.idEvenement, evenement, {headers: headers}).subscribe(events => {
         this.messageService.openMessage('L\'événement a bien été mis à jour');
         evenement.personne = personne;
       }, err => {
@@ -113,7 +113,7 @@ export class EvenementsService {
   createEvenementGenerique(personne: Personne) {
     let headers = this.resource.postResourceHeaders();
     // console.log(personne);
-    this.http.post('/api-evenement/evenement/', {
+    this.http.post('/evenement/', {
       idPersonne: personne.id,
       dateArrivee: personne.date_debut_contrat,
       dateVisiteMedicale: personne.date_visite_medicale

@@ -39,7 +39,7 @@ export class PersonnesService {
     const headers = this.resource.getResourceHeaders();
     let params = new HttpParams();
     params.set('_page', this.page.toString()).set('_limit', this.offset.toString()).set('_sort', 'nom');
-    this.http.get<Personne[]>('/api-personne/personnes', {params: params}).subscribe(personnes => {
+    this.http.get<Personne[]>('/personnes', {params: params}).subscribe(personnes => {
         for (let i = 0; i < personnes.length; i++) {
           lp[i] = personnes[i];
         }
@@ -59,7 +59,7 @@ export class PersonnesService {
 
   getPersonneById(id: string): Observable<Personne> {
     const p = new Personne();
-    this.http.get<Personne>('/api-personne/personnes/' + id).subscribe(personne => {
+    this.http.get<Personne>('/personnes/' + id).subscribe(personne => {
         p.id = personne.id;
         p.nom = personne.nom;
         p.prenom = personne.prenom;
@@ -89,13 +89,13 @@ export class PersonnesService {
 
   addPersonne(personne: Personne): Observable<Personne> {
     const headers = this.resource.putResourceHeaders();
-    return this.http.put<Personne>('/api-personne/personnes/add', personne, {headers: headers});
+    return this.http.put<Personne>('/personnes/add', personne, {headers: headers});
   }
 
 
   update(personne: Personne): Observable<Personne> {
     const headers = this.resource.putResourceHeaders();
-    return this.http.post<Personne>('/api-personne/personnes/update', personne, {headers: headers});
+    return this.http.post<Personne>('/personnes/update', personne, {headers: headers});
   }
    httpOptions = {
     withCredentials: true,
@@ -104,8 +104,8 @@ export class PersonnesService {
     })
   };
   deletePersonne(id: string) {
-    return this.http.delete("/api-personne/personnes/delete/"+id+"").subscribe();
-       
+    return this.http.delete("/personnes/delete/"+id+"").subscribe();
+
   }
 
 }

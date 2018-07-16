@@ -46,7 +46,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
     container('node') {
       stage('build IHM dist') {
         sh 'npm install'
-        sh 'npm start'
+        sh 'npm run-script build'
       }
     }
 
@@ -66,7 +66,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
           sh "docker login -u admin -p ${NEXUS_PWD} registry.k8.wildwidewest.xyz"
         }
 
-        sh "docker push registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-gestion-personnes:$now"
+        sh "docker push registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-parcours-integration:$now"
       }
     }
 
@@ -75,7 +75,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
       stage('deploy') {
 
 
-                build job: "/SofteamOuest/parcours-integration/master",
+                build job: "/SofteamOuest/parcours-integration-run/master",
                   wait: false,
                   parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
 
