@@ -54,7 +54,6 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
       stage('build docker image') {
 
-
         sh 'mkdir /etc/docker'
 
         // le registry est insecure (pas de https)
