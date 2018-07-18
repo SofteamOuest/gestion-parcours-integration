@@ -2,6 +2,7 @@ version: '3.2'
 services:
 
   parcours-integration:
+    image: "registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-parcours-integration:${tag}"
     build:
       context: .
     ports:
