@@ -11,7 +11,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
   containerTemplate(name: 'node', image: 'node', command: 'cat', ttyEnabled: true),
 
   // un conteneur pour construire les images docker
-  containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'docker', image: 'tmaier/docker-compose', command: 'cat', ttyEnabled: true),
 
   // un conteneur pour déployer les services kubernetes
   containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', command: 'cat', ttyEnabled: true)],
@@ -76,9 +76,8 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
                 build job: "/SofteamOuest/chart-run/master",
                         wait: false,
-                        parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now",
-                                $class: 'StringParameterValue', name: 'chart', value: "parcours-integration"]]
-
+                        parameters: [string(name: 'image', value: "$now"),
+                                        string(name: 'chart', value: "parcours-integration")]
       }
     }
   }
