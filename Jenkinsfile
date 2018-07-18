@@ -54,7 +54,6 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
       stage('build docker image') {
 
-        sh "docker build -t registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-parcours-integration:$now ."
 
         sh 'mkdir /etc/docker'
 
@@ -66,6 +65,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
           sh "docker login -u admin -p ${NEXUS_PWD} registry.k8.wildwidewest.xyz"
         }
 
+        sh "docker build -t registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-parcours-integration:$now ."
         sh "docker push registry.k8.wildwidewest.xyz/repository/docker-repository/pocs/meltingpoc-parcours-integration:$now"
       }
     }
@@ -74,10 +74,10 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
       stage('deploy') {
 
-
-                build job: "/SofteamOuest/parcours-integration-run/master",
-                  wait: false,
-                  parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now"]]
+                build job: "/SofteamOuest/chart-run/master",
+                        wait: false,
+                        parameters: [[$class: 'StringParameterValue', name: 'image', value: "$now",
+                                $class: 'StringParameterValue', name: 'chart', value: "parcours-integration"]]
 
       }
     }
