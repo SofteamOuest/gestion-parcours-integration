@@ -41,8 +41,6 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
     def now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
 
-    deleteDir()
-
     stage('CHECKOUT') {
       checkout scm
     }
@@ -56,7 +54,9 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
     container('sonarscanner') {
       stage('QUALITY') {
-        sh 'sonar-scanner'
+        withCredentials([string(credentialsId: 'sonarqube_token', variable: 'token')]) {
+          sh 'sonar-scanner -Dsonar.login=${token}'
+        }
       }
     }
 
