@@ -62,7 +62,7 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
     container('docker') {
 
-      stage('DEPLOY') {
+      stage('BUILD DOCKER IMAGE') {
 
         sh 'mkdir /etc/docker'
 
