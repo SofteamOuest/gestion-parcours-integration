@@ -1,5 +1,6 @@
 #!groovy
-import java.text.*
+
+import java.text.SimpleDateFormat
 
 // pod utilisé pour la compilation du projet
 podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium', containers: [
@@ -42,21 +43,27 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
     deleteDir()
 
-    stage('checkout sources') {
+    stage('CHECKOUT') {
       checkout scm
     }
 
     container('node') {
-      stage('build IHM dist') {
+      stage('BUILD') {
         sh 'npm install'
         sh 'npm run-script build'
         sh 'sonar-scanner'
       }
     }
 
+    container('sonarscanner') {
+      stage('QUALITY') {
+        sh 'sonar-scanner'
+      }
+    }
+
     container('docker') {
 
-      stage('build docker image') {
+      stage('DEPLOY') {
 
         sh 'mkdir /etc/docker'
 
@@ -76,12 +83,12 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
 
     container('kubectl') {
 
-      stage('deploy') {
+      stage('RUN') {
 
-                build job: "/SofteamOuest/chart-run/master",
-                        wait: false,
-                        parameters: [string(name: 'image', value: "$now"),
-                                        string(name: 'chart', value: "parcours-integration")]
+        build job: "/SofteamOuest/chart-run/master",
+          wait: false,
+          parameters: [string(name: 'image', value: "$now"),
+                       string(name: 'chart', value: "parcours-integration")]
       }
     }
   }
