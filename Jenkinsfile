@@ -48,10 +48,9 @@ podTemplate(label: 'meltingpoc-parcours-integration-pod', nodeSelector: 'medium'
     }
 
     container('node') {
-      stage('BUILD') {
+      stage('BUILD SOURCES') {
         sh 'npm install'
         sh 'npm run-script build'
-        sh 'sonar-scanner'
       }
     }
 
